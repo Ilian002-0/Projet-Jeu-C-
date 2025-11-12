@@ -9,7 +9,7 @@ namespace PROJET_Algo
 {
     internal class Plateau
     {
-        private string chemin_matrice = @"C:\Users\stwx2\Documents\ESILV\Année 2\Informatique\C#\Projet\Lettres.txt";
+        private string chemin_matrice = @"C:\Users\nicol\OneDrive - DVHE\Documents\ESILV\A2\Algorithme\Lettres (1).txt";
         private string[,] tableau = new string[8, 8];
         private bool verif = false; //Permettra de vérifier si le fichier a bien été trouvé
         private string error_message = "Pas d'appel pour la création de matrice";
@@ -18,6 +18,13 @@ namespace PROJET_Algo
         {
             List<string> Liste_Lettres = new List<string>();
             string[,] mat_fichier = ToRead(chemin_matrice);
+            if (mat_fichier == null)
+            {
+                this.verif = false;
+                this.error_message = "Fichier inexistant ou mauvais chemin d'accès";
+                return null;
+            }
+
             int nbLignes = mat_fichier.GetLength(0); // nombre de lignes 
 
             for (int i = 0; i < nbLignes; i++)
@@ -135,7 +142,7 @@ namespace PROJET_Algo
         }
         public void Maj_Plateau()//Met le plateau à jour en faisant une animation, attention à bien gérer car il y a un Console.WriteLine()
         {
-            for(int i=0; i<liste_coord_lettre.Count; i++)
+            for (int i = 0; i < liste_coord_lettre.Count; i++)
             {
                 int[] coord = liste_coord_lettre[i];
                 int ligne = coord[0];
@@ -144,9 +151,10 @@ namespace PROJET_Algo
                 Console.Clear();
                 Console.WriteLine(this.toString());
                 System.Threading.Thread.Sleep(300);
-                
+
             }
             this.liste_coord_lettre.Clear();
         }
     }
 }
+
