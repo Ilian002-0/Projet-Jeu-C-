@@ -38,15 +38,11 @@ namespace PROJET_Algo
 
                     foreach (string ligne in lignes)
                     {
-                        // Ignore les lignes de chiffres et les lignes vides
-                        if (!string.IsNullOrEmpty(ligne) && ligne.Length > 1 && !Char.IsDigit(ligne[0]))
-                        {
-                            string[] motsLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] motsLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                            foreach (string mot in motsLigne)
-                            {
-                                this.motsDuDictionnaire.Add(mot.ToLower()); // Ajoute en minuscules 
-                            }
+                        foreach (string mot in motsLigne)
+                        {
+                        this.motsDuDictionnaire.Add(mot.ToLower()); // Ajoute en minuscules 
                         }
                     }
 
@@ -67,7 +63,7 @@ namespace PROJET_Algo
             catch (Exception e)
             {
                 this.verif = false;
-                this.error_message = "Erreur technique lors de la lecture du dictionnaire: " + e.Message;
+                this.error_message = "Erreur technique lors de la lecture du dictionnaire: ";
             }
         }
 
