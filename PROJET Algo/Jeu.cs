@@ -14,6 +14,7 @@ namespace PROJET_Algo
         private Plateau current_plateau=null;
         private TimeSpan duree_tour = TimeSpan.Zero;
         private TimeSpan duree_jeu = TimeSpan.Zero;
+        private int tour = 0;
 
         public Jeu(Joueur joueur1, Joueur joueur2, Plateau current_plateau, int duree_tour, int duree_jeu)
         {
@@ -41,6 +42,26 @@ namespace PROJET_Algo
                 default: return false;
             }
             return true;
+        }
+        public Joueur Joueur_tour(int tour)
+        {
+            if(tour%2==0) //Tour paire c'est au joueur 2
+                return this.joueur2 ;
+            else //Tour impaire c'est au joueur 1
+                return this.joueur1;
+        }
+        public int Tour
+        {
+            get { return this.tour; }
+            set { this.tour = value; }
+        }
+        public TimeSpan Durée_Tour
+        {
+            get { return this.duree_tour; }
+        }
+        public TimeSpan Durée_Jeu
+        {
+            get { return this.duree_jeu; }
         }
     }
 }

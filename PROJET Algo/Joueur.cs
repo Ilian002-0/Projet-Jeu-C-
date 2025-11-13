@@ -54,5 +54,9 @@ namespace PROJET_Algo
             }
             return $"Nom : {this.nom_joueur}\nMots trouvés : {liste_mot}\nScore : {this.score}";
         }
+        public string Nom
+        {
+            get { return this.nom_joueur; }
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace PROJET_Algo
             }
             Console.Clear();
 
-            //Choix des durées
+                //Choix des durées
             Console.WriteLine("Veuillez choisir la durée total du jeu en min (min : 1min | max : 5min) :");
             while (!Jeu.Verif_time(1, duree_jeu)) //Type 1 pour le temps total
             {
@@ -55,8 +55,7 @@ namespace PROJET_Algo
             Dictionnaire dico = new Dictionnaire(); //tri du dictionnaire
             Console.Clear();
 
-
-
+            //Fait en sorte d'éviter quelconque bug
             if (!plateau.Verif)
             {
                 Console.WriteLine("Problème avec le fichier ou la création de la matrice");
@@ -72,6 +71,16 @@ namespace PROJET_Algo
                 Console.ReadKey();
                 return;
             }
+
+
+            //Début du jeu
+            DateTime début_jeu = DateTime.Now;
+            while (DateTime.Now!= début_jeu+jeu.Durée_Jeu) //Joue au jeu durant la durée définie
+            {
+                jeu.Tour++;
+                Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
+            }
+
 
             Console.WriteLine(plateau.toString());
             Console.WriteLine("Saisissez un mot");
