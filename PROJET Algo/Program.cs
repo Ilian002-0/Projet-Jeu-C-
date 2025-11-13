@@ -10,10 +10,52 @@ namespace PROJET_Algo
     {
         static void Main(string[] args)
         {
+            //Initialisation des variables :
+            int type_jeu = 0;
+            int duree_jeu = 0;
+            int duree_tour = 0;
+
             Plateau plateau = new Plateau(1);
-            Console.WriteLine("Génération et trie du dictionnaire...");
-            Dictionnaire dico = new Dictionnaire();
+            //Création des joueurs
+            Console.WriteLine("Joueur 1, entrez votre pseudo : ");
+            Joueur joueur_1 = new Joueur(Convert.ToString(Console.ReadLine()));
             Console.Clear();
+            Console.WriteLine("Joueur 2, entrez votre pseudo : ");
+            Joueur joueur_2 = new Joueur(Convert.ToString(Console.ReadLine()));
+            Console.Clear();
+
+
+            //Création du jeu
+                //Choix du type de plateau
+            Console.WriteLine("Veuillez choisir le type de plateau :\n" +
+                "1 : Générer aléatoirement le plateau\n" +
+                "2 : Jouer sur des plateaux existants\n\n" +
+                "Veuillez choisir un nombre entre 1 et 2 :");
+            while (type_jeu!=1 && type_jeu != 2)
+            {
+                type_jeu = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.Clear();
+
+            //Choix des durées
+            Console.WriteLine("Veuillez choisir la durée total du jeu en min (min : 1min | max : 5min) :");
+            while (!Jeu.Verif_time(1, duree_jeu)) //Type 1 pour le temps total
+            {
+                duree_jeu = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.Clear();
+            Console.WriteLine("Veuillez choisir la durée de chaque tour en seconde (min : 5s | max : 60s) :");
+            while (!Jeu.Verif_time(0, duree_tour)) //Type 0 pour le temps de chaque tour
+            {
+                duree_tour = Convert.ToInt32(Console.ReadLine());
+            }
+            Jeu jeu = new Jeu(joueur_1, joueur_2, plateau, duree_tour, duree_jeu);
+            Console.Clear();
+            Console.WriteLine("Veuillez patinter pendant la génération du jeu...");
+            Dictionnaire dico = new Dictionnaire(); //tri du dictionnaire
+            Console.Clear();
+
+
 
             if (!plateau.Verif)
             {
