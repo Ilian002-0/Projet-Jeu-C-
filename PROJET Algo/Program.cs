@@ -11,8 +11,9 @@ namespace PROJET_Algo
         static void Main(string[] args)
         {
             Plateau plateau = new Plateau(1);
-
+            Console.WriteLine("Génération et trie du dictionnaire...");
             Dictionnaire dico = new Dictionnaire();
+            Console.Clear();
 
             if (!plateau.Verif)
             {
@@ -34,21 +35,23 @@ namespace PROJET_Algo
             Console.WriteLine("Saisissez un mot");
             string mot = Console.ReadLine().ToUpper();
 
-            if (!dico.RechDichoRecursif(mot))
+
+            if (!plateau.Recherche_Mot(mot))
+            {
+                 Console.WriteLine($"Le mot '{mot}' est français, mais n'est pas sur le plateau.");
+            }
+            else if (!dico.RechDichoRecursif(mot))
             {
                 Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.");
             }
-            else if (plateau.Recherche_Mot(mot))
-            {
-                plateau.Maj_Plateau();
-                Console.WriteLine("Le mot existe youhouuu !!!");
-            }
             else
             {
-                Console.WriteLine($"Le mot '{mot}' est français, mais n'est pas sur le plateau.");
+                plateau.Maj_Plateau();
+                Console.WriteLine("Le mot existe youhoouuuu");
             }
 
-            Console.ReadKey();
+
+                Console.ReadKey();
         }
     }
 }

@@ -9,8 +9,8 @@ namespace PROJET_Algo
 {
     internal class Dictionnaire
     {
-
-        private string chemin_dictionnaire = @"C:\Users\nicol\OneDrive - DVHE\Documents\ESILV\A2\Algorithme\Projet Algo\MotsFrancais (1).txt";
+        static string user = "Ilian"; //Augustin sinon
+        private string chemin_dictionnaire = user == "Ilian" ? @"C:\Users\stwx2\Documents\ESILV\Année 2\Informatique\C#\Projet\MotsFrancais.txt" : @"C:\Users\nicol\OneDrive - DVHE\Documents\ESILV\A2\Algorithme\Projet Algo\MotsFrancais (1).txt";
 
         private List<string> motsDuDictionnaire;
         private bool verif = false;
@@ -28,38 +28,41 @@ namespace PROJET_Algo
                 this.error_message = "Fichier dictionnaire introuvable : " + this.chemin_dictionnaire;
                 return;
             }
+            else
+                this.verif = true;
 
             try
             {
-                string[] lignes = File.ReadAllLines(this.chemin_dictionnaire);
+                if (!this.verif) return;
+                    string[] lignes = File.ReadAllLines(this.chemin_dictionnaire);
 
-                foreach (string ligne in lignes)
-                {
-                    // Ignore les lignes de chiffres et les lignes vides
-                    if (!string.IsNullOrEmpty(ligne) && ligne.Length > 1 && !Char.IsDigit(ligne[0]))
+                    foreach (string ligne in lignes)
                     {
-                        string[] motsLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        foreach (string mot in motsLigne)
+                        // Ignore les lignes de chiffres et les lignes vides
+                        if (!string.IsNullOrEmpty(ligne) && ligne.Length > 1 && !Char.IsDigit(ligne[0]))
                         {
-                            this.motsDuDictionnaire.Add(mot.ToLower()); // Ajoute en minuscules 
+                            string[] motsLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            foreach (string mot in motsLigne)
+                            {
+                                this.motsDuDictionnaire.Add(mot.ToLower()); // Ajoute en minuscules 
+                            }
                         }
                     }
-                }
 
-                this.nbMotsTotal = this.motsDuDictionnaire.Count;
+                    this.nbMotsTotal = this.motsDuDictionnaire.Count;
 
-                // Tri de la liste complète si elle n'est pas vide
-                if (this.nbMotsTotal > 0)
-                {
-                    Tri_Rapide(this.motsDuDictionnaire, 0, this.nbMotsTotal - 1);
-                    this.verif = true;
-                }
-                else
-                {
-                    this.verif = false;
-                    this.error_message = "Le dictionnaire est vide ou n'a pas pu être lu.";
-                }
+                    // Tri de la liste complète si elle n'est pas vide
+                    if (this.nbMotsTotal > 0)
+                    {
+                        Tri_Rapide(this.motsDuDictionnaire, 0, this.nbMotsTotal - 1);
+                        this.verif = true;
+                    }
+                    else
+                    {
+                        this.verif = false;
+                        this.error_message = "Le dictionnaire est vide ou n'a pas pu être lu.";
+                    }
             }
             catch (Exception e)
             {
