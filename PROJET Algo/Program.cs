@@ -79,30 +79,32 @@ namespace PROJET_Algo
             {
                 jeu.Tour++;
                 Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
+                Console.Clear();
+                Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
+                DateTime début_tour = DateTime.Now;
+                while (DateTime.Now != début_tour + jeu.Durée_Tour)
+                {
+                    Console.WriteLine(plateau.toString());
+                    Console.WriteLine("Saisissez un mot :");
+                    string mot = Console.ReadLine().ToUpper();
+                    if (!plateau.Recherche_Mot(mot))
+                    {
+                        Console.WriteLine($"Le mot n'est pas sur le plateau.");
+                        Console.Clear();
+                    }
+                    else if (!dico.RechDichoRecursif(mot))
+                    {
+                        Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.");
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        plateau.Maj_Plateau();
+                        Console.WriteLine("Le mot existe youhoouuuu");
+                        current_joueur.Add_Mot(mot);
+                    }
+                }
             }
-
-
-            Console.WriteLine(plateau.toString());
-            Console.WriteLine("Saisissez un mot");
-            string mot = Console.ReadLine().ToUpper();
-
-
-            if (!plateau.Recherche_Mot(mot))
-            {
-                 Console.WriteLine($"Le mot n'est pas sur le plateau.");
-            }
-            else if (!dico.RechDichoRecursif(mot))
-            {
-                Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.");
-            }
-            else
-            {
-                plateau.Maj_Plateau();
-                Console.WriteLine("Le mot existe youhoouuuu");
-            }
-
-
-                Console.ReadKey();
         }
     }
 }
