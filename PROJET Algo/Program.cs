@@ -38,7 +38,7 @@ namespace PROJET_Algo
 
             if (!plateau.Recherche_Mot(mot))
             {
-                 Console.WriteLine($"Le mot '{mot}' est français, mais n'est pas sur le plateau.");
+                 Console.WriteLine($"Le mot n'est pas sur le plateau.");
             }
             else if (!dico.RechDichoRecursif(mot))
             {
