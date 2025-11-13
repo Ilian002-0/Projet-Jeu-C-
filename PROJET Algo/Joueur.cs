@@ -15,7 +15,7 @@ namespace PROJET_Algo
         public Joueur(string nom_joueur)
         {
             this.nom_joueur = char.ToUpper(nom_joueur[0])+nom_joueur.Substring(1);
-            this.mots_trouvés = null;
+            this.mots_trouvés = new List<string>();
             this.score = 0;
         }
         public bool Verif_nom(string nom) //Verification si le nom est correcte
@@ -26,8 +26,6 @@ namespace PROJET_Algo
         }
         public void Add_Mot(string mot)
         {
-            if(this.mots_trouvés == null)
-                mots_trouvés= new List<string>();
             this.Add_Mot(mot);
         }
         public void Add_Score(int val)

@@ -90,12 +90,10 @@ namespace PROJET_Algo
                     if (!plateau.Recherche_Mot(mot))
                     {
                         Console.WriteLine($"Le mot n'est pas sur le plateau.");
-                        Console.Clear();
                     }
                     else if (!dico.RechDichoRecursif(mot))
                     {
                         Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.");
-                        Console.Clear();
                     }
                     else
                     {
