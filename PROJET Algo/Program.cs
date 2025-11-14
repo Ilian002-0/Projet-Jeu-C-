@@ -75,14 +75,15 @@ namespace PROJET_Algo
 
             //Début du jeu
             DateTime début_jeu = DateTime.Now;
-            while (DateTime.Now!= début_jeu+jeu.Durée_Jeu) //Joue au jeu durant la durée définie
+            DateTime fin_jeu = début_jeu + jeu.Durée_Jeu;
+            while (DateTime.Now< fin_jeu) //Joue au jeu durant la durée définie
             {
                 jeu.Tour++;
                 Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
                 Console.Clear();
                 Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
                 DateTime début_tour = DateTime.Now;
-                while (DateTime.Now != début_tour + jeu.Durée_Tour)
+                while (DateTime.Now<début_tour + jeu.Durée_Tour)
                 {
                     Console.WriteLine(plateau.toString());
                     Console.WriteLine("Saisissez un mot :");

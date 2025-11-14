@@ -21,7 +21,7 @@ namespace PROJET_Algo
             this.joueur1 = joueur1;
             this.joueur2 = joueur2;
             this.duree_tour = new TimeSpan(0,0,duree_tour);
-            this.duree_jeu = new TimeSpan(0,0, duree_jeu);
+            this.duree_jeu = new TimeSpan(0,0, duree_jeu*60); //*60 car on veut une durée de jeu en minute
         }
         public static bool Verif_time(int type, int duree) //cas 0 : duree_tour(max1min min 5sec)| case 1 : duree jeu(min1min max5min)
         {

@@ -26,7 +26,7 @@ namespace PROJET_Algo
         }
         public void Add_Mot(string mot)
         {
-            this.Add_Mot(mot);
+            this.mots_trouvés.Add(mot);
         }
         public void Add_Score(int val)
         {
