@@ -153,9 +153,30 @@ namespace PROJET_Algo
                 Console.Clear();
                 Console.WriteLine(this.toString());
                 System.Threading.Thread.Sleep(300);
-
             }
+            for (int i = 0; i < liste_coord_lettre.Count; i++)
+            {
+                int[] coord = liste_coord_lettre[i];
+                Recursive_Descente_lettre(coord);
+            }
+
             this.liste_coord_lettre.Clear();
+        }
+        private void Recursive_Descente_lettre(int[] coord)
+        {
+            int ligne = coord[0];
+            int colonne = coord[1];
+            if (ligne == 0)
+                return;
+            if (tableau[ligne - 1, colonne] == " " || tableau[ligne - 1, colonne] == null)
+                return;
+            tableau[ligne, colonne] = tableau[ligne - 1, colonne];
+            tableau[ligne - 1, colonne] = " ";
+            Console.Clear();
+            Console.WriteLine(this.toString());
+            System.Threading.Thread.Sleep(250);
+            int[] newCoord = new int[] { ligne - 1, colonne };
+            Recursive_Descente_lettre(newCoord);
         }
     }
 }

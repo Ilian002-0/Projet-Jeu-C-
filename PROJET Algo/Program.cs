@@ -51,7 +51,7 @@ namespace PROJET_Algo
             }
             Jeu jeu = new Jeu(joueur_1, joueur_2, plateau, duree_tour, duree_jeu);
             Console.Clear();
-            Console.WriteLine("Veuillez patinter pendant la génération du jeu...");
+            Console.WriteLine("Veuillez patienter pendant la génération du jeu...");
             Dictionnaire dico = new Dictionnaire(); //tri du dictionnaire
             Console.Clear();
 
@@ -104,6 +104,9 @@ namespace PROJET_Algo
                     }
                 }
             }
+            //Fin du jeu 
+            Console.Clear();
+            Console.WriteLine("Le jeu est terminé !");
         }
     }
 }
