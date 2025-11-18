@@ -72,7 +72,6 @@ namespace PROJET_Algo
                 return;
             }
 
-
             //Début du jeu
             DateTime début_jeu = DateTime.Now;
             DateTime fin_jeu = début_jeu + jeu.Durée_Jeu;
@@ -81,32 +80,60 @@ namespace PROJET_Algo
                 jeu.Tour++;
                 Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
                 Console.Clear();
-                Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
                 DateTime début_tour = DateTime.Now;
+                string message = "";
                 while (DateTime.Now<début_tour + jeu.Durée_Tour)
                 {
+                    Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
                     Console.WriteLine(plateau.toString());
+                    Console.WriteLine(message);
                     Console.WriteLine("Saisissez un mot :");
                     string mot = Console.ReadLine().ToUpper();
-                    if (!plateau.Recherche_Mot(mot))
+                    if (current_joueur.Mot_Deja_trouve(mot))
                     {
-                        Console.WriteLine($"Le mot n'est pas sur le plateau.");
+                        message += $"Vous avez déjà trouvé ce mot.\n";
+                    }
+                    else if (!plateau.Recherche_Mot(mot))
+                    {
+                        message += $"Le mot '{mot}' n'est pas sur le plateau.\n";
+                        Console.Clear();
                     }
                     else if (!dico.RechDichoRecursif(mot))
                     {
-                        Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.");
+                        message += $"Le mot '{mot}' n'est pas dans le dictionnaire.\n";
+                        Console.Clear();
                     }
                     else
                     {
                         plateau.Maj_Plateau();
-                        Console.WriteLine("Le mot existe youhoouuuu");
                         current_joueur.Add_Mot(mot);
+                        int score = plateau.Calcul_Score_Mot(mot);
+                        current_joueur.Add_Score(score);
+                        message += $"Le mot existe youhou : +{score} points\n";
+                        Console.Clear();
                     }
                 }
             }
             //Fin du jeu 
             Console.Clear();
             Console.WriteLine("Le jeu est terminé !");
+            int count = 0;
+            while (count < 5)
+            {
+                Console.Clear();
+                Console.WriteLine("Décompte des points.");
+                System.Threading.Thread.Sleep(200);
+                Console.Clear();
+                Console.WriteLine("Décompte des points..");
+                System.Threading.Thread.Sleep(200);
+                Console.Clear();
+                Console.WriteLine("Décompte des points...");
+                System.Threading.Thread.Sleep(200);
+                count++;
+            }
+            Console.WriteLine(joueur_1.toString());
+            Console.WriteLine();
+            Console.WriteLine(joueur_2.toString());
         }
     }
 }

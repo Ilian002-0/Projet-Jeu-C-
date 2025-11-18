@@ -66,8 +66,6 @@ namespace PROJET_Algo
                 this.error_message = "Erreur technique lors de la lecture du dictionnaire: ";
             }
         }
-
-
         public void Tri_Rapide(List<string> liste, int debut, int fin)
         {
             if (debut < fin)
@@ -77,7 +75,6 @@ namespace PROJET_Algo
                 Tri_Rapide(liste, pivotIndex + 1, fin);
             }
         }
-
         private int Partition(List<string> liste, int debut, int fin)
         {
             string pivot = liste[fin];
@@ -101,7 +98,6 @@ namespace PROJET_Algo
 
             return i + 1;
         }
-
         public bool RechDichoRecursif(string mot)
         {
             if (!this.verif || string.IsNullOrEmpty(mot))

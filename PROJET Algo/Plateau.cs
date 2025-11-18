@@ -154,7 +154,7 @@ namespace PROJET_Algo
                 Console.WriteLine(this.toString());
                 System.Threading.Thread.Sleep(300);
             }
-            for (int i = 0; i < liste_coord_lettre.Count; i++)
+            for (int i = liste_coord_lettre.Count-1; i >= 0; i--)
             {
                 int[] coord = liste_coord_lettre[i];
                 Recursive_Descente_lettre(coord);
@@ -177,6 +177,23 @@ namespace PROJET_Algo
             System.Threading.Thread.Sleep(250);
             int[] newCoord = new int[] { ligne - 1, colonne };
             Recursive_Descente_lettre(newCoord);
+        }
+        public int Calcul_Score_Mot(string mot)
+        {
+            int score = 0;
+            string[,] matrice_score = ToRead(chemin_matrice);
+            for(int i = 0; i<mot.Length; i++)
+            {
+                for (int j = 0; j < matrice_score.GetLength(0); j++)
+                {
+                    if (mot[i].ToString() == matrice_score[j, 0])
+                    {
+                        score += Convert.ToInt32(matrice_score[i, 2]);
+                        break;
+                    }
+                }
+            }
+            return score;
         }
     }
 }

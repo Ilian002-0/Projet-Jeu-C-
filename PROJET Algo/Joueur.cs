@@ -52,9 +52,21 @@ namespace PROJET_Algo
             }
             return $"Nom : {this.nom_joueur}\nMots trouvés : {liste_mot}\nScore : {this.score}";
         }
+        public bool Mot_Deja_trouve(string mot)
+        {
+            foreach(string mot_trouve in mots_trouvés)
+            {
+                if(mot_trouve==mot) return true;
+            }
+            return false;
+        }
         public string Nom
         {
             get { return this.nom_joueur; }
+        }
+        public List<string> Mot_Trouvé
+        {
+            get { return this.mots_trouvés; }
         }
     }
 }
