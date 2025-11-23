@@ -107,7 +107,6 @@ namespace PROJET_Algo
 
             return RechDichoHelper(motNormalise, 0, this.nbMotsTotal - 1); // on utilise le helper pour pouvoir faciliter la récursivité et simplifier la commande de recherhche dans le main
         }
-
         private bool RechDichoHelper(string motCible, int debut, int fin)
         {
             if (debut > fin)
@@ -132,7 +131,6 @@ namespace PROJET_Algo
                 return RechDichoHelper(motCible, milieu + 1, fin); // Cherche à droite
             }
         }
-
         public string toString()
         {
             if (!this.verif)
@@ -157,13 +155,10 @@ namespace PROJET_Algo
 
             return resultat;
         }
-
-
         public bool Verif
         {
             get { return this.verif; }
         }
-
         public string Error_Message
         {
             get { return this.error_message; }

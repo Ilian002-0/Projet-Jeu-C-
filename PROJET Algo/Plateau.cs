@@ -152,7 +152,7 @@ namespace PROJET_Algo
                 tableau[ligne, colonne] = "*";
                 Console.Clear();
                 Console.WriteLine(this.toString());
-                System.Threading.Thread.Sleep(300);
+                System.Threading.Thread.Sleep(200);
             }
             for (int i = liste_coord_lettre.Count-1; i >= 0; i--)
             {
@@ -174,7 +174,7 @@ namespace PROJET_Algo
             tableau[ligne - 1, colonne] = " ";
             Console.Clear();
             Console.WriteLine(this.toString());
-            System.Threading.Thread.Sleep(250);
+            System.Threading.Thread.Sleep(100);
             int[] newCoord = new int[] { ligne - 1, colonne };
             Recursive_Descente_lettre(newCoord);
         }
