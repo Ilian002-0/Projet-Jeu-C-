@@ -60,7 +60,7 @@ namespace PROJET_Algo
                         this.error_message = "Le dictionnaire est vide ou n'a pas pu être lu.";
                     }
             }
-            catch (Exception e)
+            catch
             {
                 this.verif = false;
                 this.error_message = "Erreur technique lors de la lecture du dictionnaire: ";

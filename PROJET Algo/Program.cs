@@ -131,6 +131,7 @@ namespace PROJET_Algo
                 System.Threading.Thread.Sleep(200);
                 count++;
             }
+            Console.Clear();
             Console.WriteLine(joueur_1.toString());
             Console.WriteLine();
             Console.WriteLine(joueur_2.toString());
