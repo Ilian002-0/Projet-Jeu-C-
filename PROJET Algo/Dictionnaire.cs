@@ -51,7 +51,7 @@ namespace PROJET_Algo
                     // Tri de la liste complète si elle n'est pas vide
                     if (this.nbMotsTotal > 0)
                     {
-                        Tri_Rapide(this.motsDuDictionnaire, 0, this.nbMotsTotal - 1);
+                        this.motsDuDictionnaire = TriFusion(this.motsDuDictionnaire);
                         this.verif = true;
                     }
                     else
@@ -66,37 +66,49 @@ namespace PROJET_Algo
                 this.error_message = "Erreur technique lors de la lecture du dictionnaire: ";
             }
         }
-        public void Tri_Rapide(List<string> liste, int debut, int fin)
+        public List<string> TriFusion(List<string> liste)
         {
-            if (debut < fin)
-            {
-                int pivotIndex = Partition(liste, debut, fin);
-                Tri_Rapide(liste, debut, pivotIndex - 1);
-                Tri_Rapide(liste, pivotIndex + 1, fin);
-            }
-        }
-        private int Partition(List<string> liste, int debut, int fin)
-        {
-            string pivot = liste[fin];
-            int i = (debut - 1);
+            if (liste.Count <= 1)
+                return liste;
 
-            for (int j = debut; j < fin; j++)
+            int milieu = liste.Count / 2;
+            List<string> gauche = TriFusion(liste.GetRange(0, milieu));
+            List<string> droite = TriFusion(liste.GetRange(milieu, liste.Count - milieu));
+
+            return Fusionner(gauche, droite);
+        }
+        private List<string> Fusionner(List<string> gauche, List<string> droite)
+        {
+            List<string> resultat = new List<string>();
+            int i = 0, j = 0;
+
+            while (i < gauche.Count && j < droite.Count)
             {
-                // string.Compare pour trier des chaînes alphabétiquement
-                if (string.Compare(liste[j], pivot) <= 0)
+                if (string.Compare(gauche[i], droite[j]) <= 0)
                 {
+                    resultat.Add(gauche[i]);
                     i++;
-                    string temp = liste[i];
-                    liste[i] = liste[j];
-                    liste[j] = temp;
+                }
+                else
+                {
+                    resultat.Add(droite[j]);
+                    j++;
                 }
             }
 
-            string tempPivot = liste[i + 1];
-            liste[i + 1] = liste[fin];
-            liste[fin] = tempPivot;
+            while (i < gauche.Count)
+            {
+                resultat.Add(gauche[i]);
+                i++;
+            }
 
-            return i + 1;
+            while (j < droite.Count)
+            {
+                resultat.Add(droite[j]);
+                j++;
+            }
+
+            return resultat;
         }
         public bool RechDichoRecursif(string mot)
         {
