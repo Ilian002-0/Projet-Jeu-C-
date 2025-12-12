@@ -34,7 +34,7 @@ namespace PROJET_Algo
                 string lettre = mat_fichier[i, 0]; //la lettre
                 int nbApparition = Convert.ToInt32(mat_fichier[i, 1]);// nombre d'apparitions max possible de la lettre
 
-                for (int j = 0; j < nbApparition*(taille/8); j++) //Ajouter la lettre autant de fois que le nombre d'apparitions
+                for (int j = 0; j < nbApparition*(taille/6); j++) //Ajouter la lettre autant de fois que le nombre d'apparitions multiplié par un facteur en fonction de la taille
                     Liste_Lettres.Add(lettre);
             }
             return Liste_Lettres;
@@ -109,12 +109,17 @@ namespace PROJET_Algo
         {
             string res = "";
             Console.ForegroundColor = ConsoleColor.Cyan; // Optionnel : met la grille en couleur
-            res += "    ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n";
+            res += "    ╔";
+            for(int i = 0; i < tableau.Length-2; i++)
+            {
+                res += "═══╦";
+            }
+            res += "══╗\n";
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < tableau.Length-1; i++)
             {
                 res += "    ║"; // Décalage pour centrer un peu
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < tableau.Length-1; j++)
                 {
                     // On récupère la lettre, ou un espace si c'est null/vide
                     string lettre = string.IsNullOrEmpty(this.tableau[i, j]) ? " " : this.tableau[i, j];
