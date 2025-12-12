@@ -15,6 +15,7 @@ namespace PROJET_Algo
         private bool verif = true; //Permettra de vérifier si le fichier a bien été trouvé
         private string error_message = "Pas d'appel pour la création de matrice";
         private List<int[]> liste_coord_lettre = new List<int[]>();
+        private int taille_matrice = 8;
         List<string> CreerListe_Lettres() //Créer une liste remplie des lettres en fonction de leur nb d'apparition (pour la méthode aléatoire)
         {
             List<string> Liste_Lettres = new List<string>();
@@ -179,6 +180,11 @@ namespace PROJET_Algo
         {
             get { return this.error_message; }
         }
+        public int Taille_matrice
+        { 
+            get { return this.taille_matrice; }
+            set { this.taille_matrice = value; }
+        }
         public void Maj_Plateau()//Met le plateau à jour en faisant une animation, attention à bien gérer car il y a un Console.WriteLine()
         {
             for (int i = 0; i < liste_coord_lettre.Count; i++)
@@ -218,7 +224,7 @@ namespace PROJET_Algo
         public int Calcul_Score_Mot(string mot)
         {
             int score = 0;
-            string[,] matrice_score = ToRead(chemin_matrice);
+            string[,] matrice_score = ToRead("Lettres.txt");
             for(int i = 0; i<mot.Length; i++)
             {
                 for (int j = 0; j < matrice_score.GetLength(0); j++)
