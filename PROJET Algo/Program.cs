@@ -46,7 +46,6 @@ namespace PROJET_Algo
                     taille_plateau = Convert.ToInt32(Console.ReadLine());
                 }
                 Console.Clear();
-                Plateau.Taille_matrice = taille_plateau;
             }
 
             Plateau plateau = new Plateau(type_jeu, taille_plateau);
@@ -55,6 +54,7 @@ namespace PROJET_Algo
                 Console.WriteLine(plateau.Error_Message);
                 return;
             }
+            plateau.Taille_matrice = taille_plateau;
 
             //Choix des durées
             Console.WriteLine("Veuillez choisir la durée total du jeu en min (min : 1min | max : 5min) :");

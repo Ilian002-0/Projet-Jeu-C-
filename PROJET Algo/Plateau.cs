@@ -16,7 +16,7 @@ namespace PROJET_Algo
         private string error_message = "Pas d'appel pour la création de matrice";
         private List<int[]> liste_coord_lettre = new List<int[]>();
         private int taille_matrice = 8;
-        List<string> CreerListe_Lettres() //Créer une liste remplie des lettres en fonction de leur nb d'apparition (pour la méthode aléatoire)
+        List<string> CreerListe_Lettres(int taille) //Créer une liste remplie des lettres en fonction de leur nb d'apparition (pour la méthode aléatoire)
         {
             List<string> Liste_Lettres = new List<string>();
             string[,] mat_fichier = ToRead("Lettres.txt");
@@ -34,7 +34,7 @@ namespace PROJET_Algo
                 string lettre = mat_fichier[i, 0]; //la lettre
                 int nbApparition = Convert.ToInt32(mat_fichier[i, 1]);// nombre d'apparitions max possible de la lettre
 
-                for (int j = 0; j < nbApparition; j++) //Ajouter la lettre autant de fois que le nombre d'apparitions
+                for (int j = 0; j < nbApparition*(taille/8); j++) //Ajouter la lettre autant de fois que le nombre d'apparitions
                     Liste_Lettres.Add(lettre);
             }
             return Liste_Lettres;
@@ -85,13 +85,13 @@ namespace PROJET_Algo
                 int taille_verif = taille == 0 ? 8 : taille;
                 tableau = new string[taille_verif, taille_verif];
                 Random rand = new Random();
-                List<string> Liste_Lettres = CreerListe_Lettres();
+                List<string> Liste_Lettres = CreerListe_Lettres(taille_verif);
                 if (Liste_Lettres == null)
                     return;
                 int longueur = Liste_Lettres.Count;
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < taille_verif; i++)
                 {
-                    for (int j = 0; j < 8; j++)
+                    for (int j = 0; j < taille_verif; j++)
                     {
                         int index = rand.Next(0, longueur );
                         tableau[i, j] = Liste_Lettres.ElementAt(index); // Remplir chaque case avec un nombre aléatoire entre 0 et la ongueur de la liste
