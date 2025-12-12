@@ -130,7 +130,7 @@ namespace PROJET_Algo
                 res += "\n"; // Retour à la ligne
 
                 // Si ce n'est pas la dernière ligne, on dessine le séparateur intermédiaire
-                if (i < 7)
+                if (i < tableau.Length-1)
                     res += "    ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n";
             }
 
