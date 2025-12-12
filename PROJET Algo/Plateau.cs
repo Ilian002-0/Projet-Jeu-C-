@@ -13,6 +13,7 @@ namespace PROJET_Algo
         static string user = "Ilian"; //Augustin sinon
         private string chemin_matrice = user == "Ilian"?@"C:\Users\stwx2\Documents\ESILV\Année 2\Informatique\C#\Projet\Lettres.txt":@"C:\Users\nicol\OneDrive - DVHE\Documents\ESILV\A2\Algorithme\Lettres (1).txt";
         private string[,] tableau = new string[8, 8];
+        private string tab_fait = "";
         private bool verif = false; //Permettra de vérifier si le fichier a bien été trouvé
         private string error_message = "Pas d'appel pour la création de matrice";
         private List<int[]> liste_coord_lettre = new List<int[]>();
@@ -97,7 +98,9 @@ namespace PROJET_Algo
                 }
             }
             if (type == 2) //type 2 : chercher un tableau déjà fait
-            { }
+            {
+                this.tableau = ToRead(tab_fait);
+            }
         } //Créer le plateau de jeu avec les 2 types différents
         public string toString() //Renvoie une chaîne de caractères qui décrit le plateau
         {
@@ -181,14 +184,14 @@ namespace PROJET_Algo
         }
         private void Recursive_Descente_lettre(int[] coord)
         {
-            int ligne = coord[0];
+            int ligne = coord[0]; 
             int colonne = coord[1];
             if (ligne == 0)
                 return;
-            if (tableau[ligne - 1, colonne] == " " || tableau[ligne - 1, colonne] == null)
+            if (tableau[ligne - 1, colonne] == " " || tableau[ligne - 1, colonne] == null) //Si on tombe sur une case vide ou null on arrête
                 return;
-            tableau[ligne, colonne] = tableau[ligne - 1, colonne];
-            tableau[ligne - 1, colonne] = " ";
+            tableau[ligne, colonne] = tableau[ligne - 1, colonne]; //On fait descendre la lettre à la ligne d'en dessous
+            tableau[ligne - 1, colonne] = " "; // on écrase la lettre du dessus (qui a été mise en bas) par un espace
             Console.Clear();
             Console.WriteLine(this.toString());
             System.Threading.Thread.Sleep(100);

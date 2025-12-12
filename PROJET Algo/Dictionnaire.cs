@@ -143,10 +143,7 @@ namespace PROJET_Algo
             resultat += $"Nombre total de mots: {this.nbMotsTotal}\n";
             resultat += "------------------------------------\n";
 
-            // Utilise LINQ pour grouper les mots par leur première lettre
-            var motsGroupe = this.motsDuDictionnaire
-                .GroupBy(m => m[0])
-                .OrderBy(g => g.Key);
+            var motsGroupe = this.motsDuDictionnaire.GroupBy(m => m[0]).OrderBy(g => g.Key);
 
             foreach (var groupe in motsGroupe)
             {
