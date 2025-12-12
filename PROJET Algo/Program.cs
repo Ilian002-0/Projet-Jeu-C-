@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,8 +15,14 @@ namespace PROJET_Algo
             int type_jeu = 0;
             int duree_jeu = 0;
             int duree_tour = 0;
+            int taille_plateau = 0;
 
             Plateau plateau = new Plateau(1);
+            if(!plateau.Verif)
+            {
+                Console.WriteLine(plateau.Error_Message);
+                return;
+            }
             //Création des joueurs
             Console.WriteLine("Joueur 1, entrez votre pseudo : ");
             Joueur joueur_1 = new Joueur(Convert.ToString(Console.ReadLine()));
@@ -31,6 +38,13 @@ namespace PROJET_Algo
                 "1 : Générer aléatoirement le plateau\n" +
                 "2 : Jouer sur des plateaux existants\n\n" +
                 "Veuillez choisir un nombre entre 1 et 2 :");
+            while (taille_plateau < 3 || taille_plateau > 12)
+            {
+                type_jeu = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.Clear();
+
+            Console.WriteLine("Veuillez choisir la taille du plateau (3 à 12) :");
             while (type_jeu != 1 && type_jeu != 2)
             {
                 type_jeu = Convert.ToInt32(Console.ReadLine());

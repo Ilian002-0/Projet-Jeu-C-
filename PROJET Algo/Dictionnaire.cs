@@ -9,9 +9,7 @@ namespace PROJET_Algo
 {
     internal class Dictionnaire
     {
-        static string user = "Ilian"; //Augustin sinon
-        private string chemin_dictionnaire = user == "Ilian" ? @"C:\Users\stwx2\Documents\ESILV\Année 2\Informatique\C#\Projet\MotsFrancais.txt" : @"C:\Users\nicol\OneDrive - DVHE\Documents\ESILV\A2\Algorithme\Projet Algo\MotsFrancais (1).txt";
-
+        private string chemin_dictionnaire = "MotsFrancais.txt";
         private List<string> motsDuDictionnaire;
         private bool verif = false;
         private string error_message = "Dictionnaire non initialisé";
@@ -95,19 +93,16 @@ namespace PROJET_Algo
                     j++;
                 }
             }
-
             while (i < gauche.Count)
             {
                 resultat.Add(gauche[i]);
                 i++;
             }
-
             while (j < droite.Count)
             {
                 resultat.Add(droite[j]);
                 j++;
             }
-
             return resultat;
         }
         public bool RechDichoRecursif(string mot)

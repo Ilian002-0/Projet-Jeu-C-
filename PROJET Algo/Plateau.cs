@@ -10,21 +10,19 @@ namespace PROJET_Algo
 {
     internal class Plateau
     {
-        static string user = "Ilian"; //Augustin sinon
-        private string chemin_matrice = user == "Ilian"?@"C:\Users\stwx2\Documents\ESILV\Année 2\Informatique\C#\Projet\Lettres.txt":@"C:\Users\nicol\OneDrive - DVHE\Documents\ESILV\A2\Algorithme\Lettres (1).txt";
-        private string[,] tableau = new string[8, 8];
+        private string[,] tableau;
         private string tab_fait = "";
-        private bool verif = false; //Permettra de vérifier si le fichier a bien été trouvé
+        private bool verif = true; //Permettra de vérifier si le fichier a bien été trouvé
         private string error_message = "Pas d'appel pour la création de matrice";
         private List<int[]> liste_coord_lettre = new List<int[]>();
         List<string> CreerListe_Lettres() //Créer une liste remplie des lettres en fonction de leur nb d'apparition (pour la méthode aléatoire)
         {
             List<string> Liste_Lettres = new List<string>();
-            string[,] mat_fichier = ToRead(chemin_matrice);
+            string[,] mat_fichier = ToRead("Lettres.txt");
             if (mat_fichier == null)
             {
                 this.verif = false;
-                this.error_message = "Fichier inexistant ou mauvais chemin d'accès";
+                this.error_message = "Fichier lettres inexistant ou mauvais chemin d'accès";
                 return null;
             }
 
@@ -55,13 +53,13 @@ namespace PROJET_Algo
                 {
                     string[] valeurs = ligne.Split(','); //Crée un mini tableau avec les données de chaque ligne
                     for (int i = 0; i < nbColonnes; i++)
-                        matrice_lettre[ligne_mat, i] = valeurs[i]; //On rempli la matrice avec les données
+                        matrice_lettre[ligne_mat, i] = valeurs[i].ToUpper(); //On rempli la matrice avec les données en majuscule
                     ligne_mat++;
                 }
                 this.verif = true;
             }
             else
-            { this.verif = false; this.error_message = "Fichier inexistant ou mauvais chemin d'accès"; }
+            { this.verif = false; this.error_message = "Fichier inexistant ou mauvais chemin d'accès"; return null; }
             return matrice_lettre;
         }
         public void ToFile(string nomfile)
@@ -79,18 +77,22 @@ namespace PROJET_Algo
                 }
             }
         }
-        public Plateau(int type)
+        public Plateau(int type, int taille=0)
         {
             if (type == 1) // type 1 : façon aléatoire
             {
+                int taille_verif = taille == 0 ? 8 : taille;
+                tableau = new string[taille_verif, taille_verif];
                 Random rand = new Random();
                 List<string> Liste_Lettres = CreerListe_Lettres();
-                int longueur = Liste_Lettres.Count - 1;
+                if (Liste_Lettres == null)
+                    return;
+                int longueur = Liste_Lettres.Count;
                 for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        int index = rand.Next(0, longueur);
+                        int index = rand.Next(0, longueur );
                         tableau[i, j] = Liste_Lettres.ElementAt(index); // Remplir chaque case avec un nombre aléatoire entre 0 et la ongueur de la liste
                         Liste_Lettres.RemoveAt(index); // Supprimer la lettre pour garder les bonnes probabilités
                         longueur--;
@@ -104,16 +106,31 @@ namespace PROJET_Algo
         } //Créer le plateau de jeu avec les 2 types différents
         public string toString() //Renvoie une chaîne de caractères qui décrit le plateau
         {
-            string resultat = "";
+            string res = "";
+            Console.ForegroundColor = ConsoleColor.Cyan; // Optionnel : met la grille en couleur
+            res += "    ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n";
+
             for (int i = 0; i < 8; i++)
             {
+                res += "    ║"; // Décalage pour centrer un peu
                 for (int j = 0; j < 8; j++)
                 {
-                    resultat += tableau[i, j] + " ";
+                    // On récupère la lettre, ou un espace si c'est null/vide
+                    string lettre = string.IsNullOrEmpty(this.tableau[i, j]) ? " " : this.tableau[i, j];
+
+                    // Affichage de la lettre centrée
+                    res += $" {lettre} ║";
                 }
-                resultat += "\n";
+                res += "\n"; // Retour à la ligne
+
+                // Si ce n'est pas la dernière ligne, on dessine le séparateur intermédiaire
+                if (i < 7)
+                    res += "    ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n";
             }
-            return resultat;
+
+            res += "    ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n";
+            Console.ResetColor(); // On remet la couleur par défaut
+            return res;
         }
         public bool Recherche_Mot(string mot)
         {
