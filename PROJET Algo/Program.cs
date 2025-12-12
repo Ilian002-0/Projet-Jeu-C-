@@ -8,7 +8,7 @@ namespace PROJET_Algo
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Game()
         {
             //Initialisation des variables :
             int type_jeu = 0;
@@ -26,18 +26,18 @@ namespace PROJET_Algo
 
 
             //Création du jeu
-                //Choix du type de plateau
+            //Choix du type de plateau
             Console.WriteLine("Veuillez choisir le type de plateau :\n" +
                 "1 : Générer aléatoirement le plateau\n" +
                 "2 : Jouer sur des plateaux existants\n\n" +
                 "Veuillez choisir un nombre entre 1 et 2 :");
-            while (type_jeu!=1 && type_jeu != 2)
+            while (type_jeu != 1 && type_jeu != 2)
             {
                 type_jeu = Convert.ToInt32(Console.ReadLine());
             }
             Console.Clear();
 
-                //Choix des durées
+            //Choix des durées
             Console.WriteLine("Veuillez choisir la durée total du jeu en min (min : 1min | max : 5min) :");
             while (!Jeu.Verif_time(1, duree_jeu)) //Type 1 pour le temps total
             {
@@ -75,14 +75,14 @@ namespace PROJET_Algo
             //Début du jeu
             DateTime début_jeu = DateTime.Now;
             DateTime fin_jeu = début_jeu + jeu.Durée_Jeu;
-            while (DateTime.Now< fin_jeu) //Joue au jeu durant la durée définie
+            while (DateTime.Now < fin_jeu) //Joue au jeu durant la durée définie
             {
                 jeu.Tour++;
                 Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
                 Console.Clear();
                 DateTime début_tour = DateTime.Now;
                 string message = "";
-                while (DateTime.Now<début_tour + jeu.Durée_Tour)
+                while (DateTime.Now < début_tour + jeu.Durée_Tour)
                 {
                     Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
                     Console.WriteLine(plateau.toString());
@@ -135,6 +135,10 @@ namespace PROJET_Algo
             Console.WriteLine(joueur_1.toString());
             Console.WriteLine();
             Console.WriteLine(joueur_2.toString());
+        }
+        static void Main(string[] args)
+        {
+            Game();
         }
     }
 }
