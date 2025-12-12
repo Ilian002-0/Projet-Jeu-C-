@@ -118,16 +118,16 @@ namespace PROJET_Algo
             Console.Clear();
             Console.WriteLine("Le jeu est terminé !");
             int count = 0;
-            while (count < 5)
+            while (count < 4)
             {
                 Console.Clear();
-                Console.WriteLine("Décompte des points.");
+                Console.Write("Décompte des points");
                 System.Threading.Thread.Sleep(200);
-                Console.Clear();
-                Console.WriteLine("Décompte des points..");
+                Console.Write(".");
                 System.Threading.Thread.Sleep(200);
-                Console.Clear();
-                Console.WriteLine("Décompte des points...");
+                Console.Write(".");
+                System.Threading.Thread.Sleep(200);
+                Console.WriteLine(".");
                 System.Threading.Thread.Sleep(200);
                 count++;
             }

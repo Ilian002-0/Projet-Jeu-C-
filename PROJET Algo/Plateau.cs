@@ -63,6 +63,21 @@ namespace PROJET_Algo
             { this.verif = false; this.error_message = "Fichier inexistant ou mauvais chemin d'accès"; }
             return matrice_lettre;
         }
+        public void ToFile(string nomfile)
+        {
+            using (StreamWriter writer = new StreamWriter(@"C:\Users\stwx2\Downloads\" + nomfile + ".txt"))
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        writer.Write(tableau[i, j]);
+                        if (j < 7) writer.Write(",");
+                    }
+                    writer.WriteLine();
+                }
+            }
+        }
         public Plateau(int type)
         {
             if (type == 1) // type 1 : façon aléatoire
@@ -127,6 +142,8 @@ namespace PROJET_Algo
             if (RechercheRecursive(mot, ligne, col - 1, index + 1, visite)) return true; // Recherche à gauche
             if (RechercheRecursive(mot, ligne, col + 1, index + 1, visite)) return true; // à droite
             if (RechercheRecursive(mot, ligne - 1, col, index + 1, visite)) return true; //en haut
+            if (RechercheRecursive(mot, ligne - 1, col - 1, index + 1, visite)) return true; //en diagonale haut-gauche
+            if (RechercheRecursive(mot, ligne - 1, col + 1, index + 1, visite)) return true; //en diagonale haut-droite
 
             visite[ligne, col] = false;  //Si le chemin ne fonctionne pas on revient en arrière pour en trouver un autre
             liste_coord_lettre.RemoveAt(liste_coord_lettre.Count - 1);
