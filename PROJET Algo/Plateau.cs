@@ -110,7 +110,7 @@ namespace PROJET_Algo
             string res = "";
             Console.ForegroundColor = ConsoleColor.Cyan; // Optionnel : met la grille en couleur
             res += "    ╔";
-            for(int i = 0; i < taille_matrice-1; i++)
+            for (int i = 0; i < taille_matrice - 1; i++)
             {
                 res += "═══╦";
             }
@@ -130,7 +130,7 @@ namespace PROJET_Algo
                 res += "\n"; // Retour à la ligne
 
                 // Si ce n'est pas la dernière ligne, on dessine le séparateur intermédiaire
-                if (i < taille_matrice -1)
+                if (i < taille_matrice - 1)
                     res += "    ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n";
             }
 
