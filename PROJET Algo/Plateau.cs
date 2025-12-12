@@ -110,16 +110,16 @@ namespace PROJET_Algo
             string res = "";
             Console.ForegroundColor = ConsoleColor.Cyan; // Optionnel : met la grille en couleur
             res += "    ╔";
-            for(int i = 0; i < tableau.Length-2; i++)
+            for(int i = 0; i < taille_matrice-1; i++)
             {
                 res += "═══╦";
             }
-            res += "══╗\n";
+            res += "═══╗\n";
 
-            for (int i = 0; i < tableau.Length-1; i++)
+            for (int i = 0; i < taille_matrice; i++)
             {
                 res += "    ║"; // Décalage pour centrer un peu
-                for (int j = 0; j < tableau.Length-1; j++)
+                for (int j = 0; j < taille_matrice; j++)
                 {
                     // On récupère la lettre, ou un espace si c'est null/vide
                     string lettre = string.IsNullOrEmpty(this.tableau[i, j]) ? " " : this.tableau[i, j];
@@ -130,7 +130,7 @@ namespace PROJET_Algo
                 res += "\n"; // Retour à la ligne
 
                 // Si ce n'est pas la dernière ligne, on dessine le séparateur intermédiaire
-                if (i < tableau.Length-1)
+                if (i < taille_matrice -1)
                     res += "    ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n";
             }
 
