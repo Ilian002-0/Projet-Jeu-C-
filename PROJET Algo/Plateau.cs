@@ -34,7 +34,7 @@ namespace PROJET_Algo
                 string lettre = mat_fichier[i, 0]; //la lettre
                 int nbApparition = Convert.ToInt32(mat_fichier[i, 1]);// nombre d'apparitions max possible de la lettre
 
-                for (int j = 0; j < nbApparition*(taille/6); j++) //Ajouter la lettre autant de fois que le nombre d'apparitions multiplié par un facteur en fonction de la taille
+                for (int j = 0; j < nbApparition*(taille/3); j++) //Ajouter la lettre autant de fois que le nombre d'apparitions multiplié par un facteur en fonction de la taille
                     Liste_Lettres.Add(lettre);
             }
             return Liste_Lettres;
@@ -93,18 +93,30 @@ namespace PROJET_Algo
                 {
                     for (int j = 0; j < taille_verif; j++)
                     {
-                        int index = rand.Next(0, longueur );
+                        int index = rand.Next(0, longueur);
                         tableau[i, j] = Liste_Lettres.ElementAt(index); // Remplir chaque case avec un nombre aléatoire entre 0 et la ongueur de la liste
                         Liste_Lettres.RemoveAt(index); // Supprimer la lettre pour garder les bonnes probabilités
                         longueur--;
                     }
                 }
+                taille_matrice = taille_verif;
             }
-            if (type == 2) //type 2 : chercher un tableau déjà fait
+            if (type == 2) // type 2 : chercher un tableau déjà fait
             {
-                string tab = Tab_Test()+".txt";
-                if(tab == null) return;
-                this.tableau = ToRead(tab);
+                string fileBaseName = Tab_Test();
+                if (string.IsNullOrEmpty(fileBaseName))
+                {
+                    this.verif = false;
+                    this.error_message = "Aucun fichier test choisi.";
+                    return;
+                }
+                string fichier = fileBaseName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)
+                    ? fileBaseName
+                    : fileBaseName + ".txt";
+                this.tableau = new string[8,8];
+                this.tableau = ToRead(fichier);
+                if (this.tableau == null) return;
+                this.taille_matrice = this.tableau.GetLength(0);
             }
         } //Créer le plateau de jeu avec les 2 types différents
         public string toString() //Renvoie une chaîne de caractères qui décrit le plateau
@@ -270,7 +282,7 @@ namespace PROJET_Algo
             string[] tab_nom_fichier = tab_fait.Split(',');
             int nb_fichier = tab_nom_fichier.Length;
             Random rand = new Random();
-            return tab_nom_fichier[rand.Next(nb_fichier)];
+            return tab_nom_fichier[rand.Next(0,nb_fichier)];
         }
     }
 }

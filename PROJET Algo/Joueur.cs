@@ -11,6 +11,7 @@ namespace PROJET_Algo
         private string nom_joueur = "";
         private List<string> mots_trouvés = null;
         private int score = 0;
+        private string message = "";
 
         public Joueur(string nom_joueur)
         {
@@ -63,6 +64,11 @@ namespace PROJET_Algo
         public string Nom
         {
             get { return this.nom_joueur; }
+        }
+        public string Message
+        {
+            get { return this.message; }
+            set { this.message = value; }
         }
         public List<string> Mot_Trouvé
         {
