@@ -131,23 +131,34 @@ namespace PROJET_Algo
 
                 // Si ce n'est pas la dernière ligne, on dessine le séparateur intermédiaire
                 if (i < taille_matrice - 1)
-                    res += "    ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n";
+                {
+                    res += "    ╠";
+                    for (int j = 0; j < taille_matrice - 1; j++)
+                    {
+                        res += "═══╬";
+                    }
+                    res += "═══╣\n";
+                }
             }
-
-            res += "    ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n";
+            res += "    ╚";
+            for (int i = 0; i < taille_matrice - 1; i++)
+            {
+                res += "═══╩";
+            }
+            res += "═══╝\n";
             Console.ResetColor(); // On remet la couleur par défaut
             return res;
         }
         public bool Recherche_Mot(string mot)
         {
             liste_coord_lettre.Clear();
-            int ligneBase = 7;
+            int ligneBase = taille_matrice-1;
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < taille_matrice; i++)
             {
                 if (this.tableau[ligneBase, i] == mot[0].ToString())
                 {
-                    if (RechercheRecursive(mot, ligneBase, i, 0, new bool[8, 8]))
+                    if (RechercheRecursive(mot, ligneBase, i, 0, new bool[taille_matrice, taille_matrice]))
                         return true;
                 }
             }
@@ -157,7 +168,7 @@ namespace PROJET_Algo
         {
             if (index == mot.Length) return true;
 
-            if (ligne < 0 || ligne >= 8 || col < 0 || col >= 8) return false;
+            if (ligne < 0 || ligne >= taille_matrice || col < 0 || col >= taille_matrice) return false;
             if (visite[ligne, col]) return false;
 
             if (this.tableau[ligne, col] != mot[index].ToString()) return false;
