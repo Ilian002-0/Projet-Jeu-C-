@@ -11,7 +11,7 @@ namespace PROJET_Algo
     internal class Plateau
     {
         private string[,] tableau;
-        private string tab_fait = "";
+        private string tab_fait = "TEST1,TEST2,TEST3";
         private bool verif = true; //Permettra de vérifier si le fichier a bien été trouvé
         private string error_message = "Pas d'appel pour la création de matrice";
         private List<int[]> liste_coord_lettre = new List<int[]>();
@@ -102,7 +102,9 @@ namespace PROJET_Algo
             }
             if (type == 2) //type 2 : chercher un tableau déjà fait
             {
-                this.tableau = ToRead(tab_fait);
+                string tab = Tab_Test()+".txt";
+                if(tab == null) return;
+                this.tableau = ToRead(tab);
             }
         } //Créer le plateau de jeu avec les 2 types différents
         public string toString() //Renvoie une chaîne de caractères qui décrit le plateau
@@ -159,7 +161,10 @@ namespace PROJET_Algo
                 if (this.tableau[ligneBase, i] == mot[0].ToString())
                 {
                     if (RechercheRecursive(mot, ligneBase, i, 0, new bool[taille_matrice, taille_matrice]))
+                    {
+                        Maj_Plateau(liste_coord_lettre);
                         return true;
+                    }
                 }
             }
             return false;
@@ -201,7 +206,7 @@ namespace PROJET_Algo
             get { return this.taille_matrice; }
             set { this.taille_matrice = value; }
         }
-        public void Maj_Plateau()//Met le plateau à jour en faisant une animation, attention à bien gérer car il y a un Console.WriteLine()
+        public void Maj_Plateau(List<int[]> liste_coordonne)//Met le plateau à jour en faisant une animation, attention à bien gérer car il y a un Console.WriteLine()
         {
             for (int i = 0; i < liste_coord_lettre.Count; i++)
             {
@@ -253,6 +258,19 @@ namespace PROJET_Algo
                 }
             }
             return score;
+        }
+        public string Tab_Test() //Permet de renvoyer le nom du fichier test choisi aléatoirement 
+        {
+            if (tab_fait == null || tab_fait.Length == 0)
+            {
+                this.verif = false;
+                this.error_message = "Aucun fichier test trouvé.";
+                return null;
+            }
+            string[] tab_nom_fichier = tab_fait.Split(',');
+            int nb_fichier = tab_nom_fichier.Length;
+            Random rand = new Random();
+            return tab_nom_fichier[rand.Next(nb_fichier)];
         }
     }
 }

@@ -112,19 +112,18 @@ namespace PROJET_Algo
                     {
                         message += $"Vous avez déjà trouvé ce mot.\n";
                     }
-                    else if (!plateau.Recherche_Mot(mot))
-                    {
-                        message += $"Le mot '{mot}' n'est pas sur le plateau.\n";
-                        Console.Clear();
-                    }
                     else if (!dico.RechDichoRecursif(mot))
                     {
                         message += $"Le mot '{mot}' n'est pas dans le dictionnaire.\n";
                         Console.Clear();
                     }
+                    else if (!plateau.Recherche_Mot(mot))
+                    {
+                        message += $"Le mot '{mot}' n'est pas sur le plateau.\n";
+                        Console.Clear();
+                    }
                     else
                     {
-                        plateau.Maj_Plateau();
                         current_joueur.Add_Mot(mot);
                         int score = plateau.Calcul_Score_Mot(mot);
                         current_joueur.Add_Score(score);
