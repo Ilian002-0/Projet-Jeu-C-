@@ -33,15 +33,6 @@ namespace PROJET_Algo
         {
             this.score += val;
         }
-        public bool Contient(string mot)
-        {
-            for(int i = 0; i<this.mots_trouvés.Count; i++)
-            {
-                if(mot== mots_trouvés[i])
-                    return true;
-            }
-            return false;
-        }
         public string toString()
         {
             string liste_mot = "";
@@ -53,7 +44,7 @@ namespace PROJET_Algo
             }
             return $"Nom : {this.nom_joueur}\nMots trouvés : {liste_mot}\nScore : {this.score}";
         }
-        public bool Mot_Deja_trouve(string mot)
+        public bool Contient(string mot)
         {
             foreach(string mot_trouve in mots_trouvés)
             {

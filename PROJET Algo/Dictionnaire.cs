@@ -32,13 +32,13 @@ namespace PROJET_Algo
             try
             {
                 if (!this.verif) return;
-                    string[] lignes = File.ReadAllLines(this.chemin_dictionnaire);
+                    string[] lignes = File.ReadAllLines(this.chemin_dictionnaire); // Lit toutes les lignes du fichier
 
-                    foreach (string ligne in lignes)
+                foreach (string ligne in lignes)
                     {
-                        string[] motsLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] motsLigne = ligne.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries); // Sépare les mots par espace
 
-                        foreach (string mot in motsLigne)
+                    foreach (string mot in motsLigne)
                         {
                         this.motsDuDictionnaire.Add(mot.ToLower()); // Ajoute en minuscules 
                         }
@@ -49,8 +49,8 @@ namespace PROJET_Algo
                     // Tri de la liste complète si elle n'est pas vide
                     if (this.nbMotsTotal > 0)
                     {
-                        this.motsDuDictionnaire = TriFusion(this.motsDuDictionnaire);
-                        this.verif = true;
+                        this.motsDuDictionnaire = TriFusion(this.motsDuDictionnaire); // Tri fusion
+                    this.verif = true;
                     }
                     else
                     {
@@ -75,7 +75,7 @@ namespace PROJET_Algo
 
             return Fusionner(gauche, droite);
         }
-        private List<string> Fusionner(List<string> gauche, List<string> droite)
+        private List<string> Fusionner(List<string> gauche, List<string> droite) // Fusionne deux listes triées en les triant
         {
             List<string> resultat = new List<string>();
             int i = 0, j = 0;
@@ -105,7 +105,7 @@ namespace PROJET_Algo
             }
             return resultat;
         }
-        public bool RechDichoRecursif(string mot)
+        public bool RechDichoRecursif(string mot)// Recherche dichotomique récursive
         {
             if (!this.verif || string.IsNullOrEmpty(mot))
                 return false;
@@ -114,7 +114,7 @@ namespace PROJET_Algo
 
             return RechDichoHelper(motNormalise, 0, this.nbMotsTotal - 1); // on utilise le helper pour pouvoir faciliter la récursivité et simplifier la commande de recherhche dans le main
         }
-        private bool RechDichoHelper(string motCible, int debut, int fin)
+        private bool RechDichoHelper(string motCible, int debut, int fin)// Fonction récursive de recherche dichotomique
         {
             if (debut > fin)
             {
@@ -123,7 +123,7 @@ namespace PROJET_Algo
 
             int milieu = (debut + fin) / 2;
 
-            int comparaison = string.Compare(motCible, this.motsDuDictionnaire[milieu]);
+            int comparaison = string.Compare(motCible, this.motsDuDictionnaire[milieu]);// Compare le mot cible avec le mot au milieu
 
             if (comparaison == 0)
             {
