@@ -9,7 +9,7 @@ namespace PROJET_Algo
 {
     internal class Dictionnaire
     {
-        private string chemin_dictionnaire = "MotsFrancais.txt";
+        private string chemin_dictionnaire = "Mots_Français.txt";
         private List<string> motsDuDictionnaire;
         private bool verif = false;
         private string error_message = "Dictionnaire non initialisé";

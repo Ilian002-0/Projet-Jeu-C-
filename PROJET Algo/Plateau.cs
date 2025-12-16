@@ -19,7 +19,7 @@ namespace PROJET_Algo
         List<string> CreerListe_Lettres(int taille) //Créer une liste remplie des lettres en fonction de leur nb d'apparition (pour la méthode aléatoire)
         {
             List<string> Liste_Lettres = new List<string>();
-            string[,] mat_fichier = ToRead("Lettres.txt");
+            string[,] mat_fichier = ToRead("Lettres.txt"); //On stocke la matrice lue dans une variable
             if (mat_fichier == null)
             {
                 this.verif = false;
@@ -65,7 +65,7 @@ namespace PROJET_Algo
         }
         public void ToFile(string nomfile)
         {
-            using (StreamWriter writer = new StreamWriter(@"C:\Users\stwx2\Downloads\" + nomfile + ".txt"))
+            using (StreamWriter writer = new StreamWriter(nomfile + ".txt"))
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -185,7 +185,7 @@ namespace PROJET_Algo
         {
             if (index == mot.Length) return true;
 
-            if (ligne < 0 || ligne >= taille_matrice || col < 0 || col >= taille_matrice) return false;
+            if (ligne < 0 || ligne >= taille_matrice || col < 0 || col >= taille_matrice) return false; //Verifie si on est hors des limites
             if (visite[ligne, col]) return false;
 
             if (this.tableau[ligne, col] != mot[index].ToString()) return false;
@@ -200,7 +200,7 @@ namespace PROJET_Algo
             if (RechercheRecursive(mot, ligne - 1, col + 1, index + 1, visite)) return true; //en diagonale haut-droite
 
             visite[ligne, col] = false;  //Si le chemin ne fonctionne pas on revient en arrière pour en trouver un autre
-            liste_coord_lettre.RemoveAt(liste_coord_lettre.Count - 1);
+            liste_coord_lettre.RemoveAt(liste_coord_lettre.Count - 1); //On enlève la coordonnée ajoutée précédemment
 
             return false;
         }
@@ -233,7 +233,7 @@ namespace PROJET_Algo
             for (int i = liste_coord_lettre.Count-1; i >= 0; i--)
             {
                 int[] coord = liste_coord_lettre[i];
-                Recursive_Descente_lettre(coord);
+                Recursive_Descente_lettre(coord); //Fait descendre la lettre en partant de la coordonnée donnée
             }
 
             this.liste_coord_lettre.Clear();
@@ -251,20 +251,20 @@ namespace PROJET_Algo
             Console.Clear();
             Console.WriteLine(this.toString());
             System.Threading.Thread.Sleep(100);
-            int[] newCoord = new int[] { ligne - 1, colonne };
+            int[] newCoord = new int[] { ligne - 1, colonne }; //On crée une nouvelle coordonnée pour continuer la descente
             Recursive_Descente_lettre(newCoord);
         }
-        public int Calcul_Score_Mot(string mot)
+        public int Calcul_Score_Mot(string mot) //Calcule le score d'un mot en fonction des lettres qui le composent
         {
             int score = 0;
-            string[,] matrice_score = ToRead("Lettres.txt");
-            for(int i = 0; i<mot.Length; i++)
+            string[,] matrice_score = ToRead("Lettres.txt"); //On stocke la matrice lue dans une variable
+            for (int i = 0; i<mot.Length; i++)
             {
                 for (int j = 0; j < matrice_score.GetLength(0); j++)
                 {
                     if (mot[i].ToString() == matrice_score[j, 0])
                     {
-                        score += Convert.ToInt32(matrice_score[i, 2]);
+                        score += Convert.ToInt32(matrice_score[j, 2]);
                         break;
                     }
                 }
