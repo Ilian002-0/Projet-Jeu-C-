@@ -65,5 +65,9 @@ namespace PROJET_Algo
         {
             get { return this.mots_trouvés; }
         }
+        public int Score
+        {
+            get { return this.score; }
+        }
     }
 }

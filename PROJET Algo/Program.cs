@@ -35,9 +35,10 @@ namespace PROJET_Algo
                 //Choix du type de plateau
                 Console.WriteLine("Veuillez choisir le type de plateau :\n" +
                     "1 : Générer aléatoirement le plateau\n" +
-                    "2 : Jouer sur des plateaux existants\n\n" +
-                    "Veuillez choisir un nombre entre 1 et 2 :");
-                while (type_jeu != 1 && type_jeu != 2)
+                    "2 : Jouer sur des plateaux existants\n" +
+                    "3 : Arrêter le jeu\n\n" +
+                    "Veuillez choisir un nombre entre 1 et 3 :");
+                while (type_jeu != 1 && type_jeu != 2 && type_jeu != 3)
                 {
                     type_jeu = Convert.ToInt32(Console.ReadLine());
                 }
@@ -52,6 +53,8 @@ namespace PROJET_Algo
                     }
                     Console.Clear();
                 }
+                else if (type_jeu == 3)
+                    break;
 
                 Plateau plateau = new Plateau(type_jeu, taille_plateau);
                 if (!plateau.Verif)
@@ -104,7 +107,11 @@ namespace PROJET_Algo
                     Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
                     Console.Clear();
                     DateTime début_tour = DateTime.Now;
-                    while (DateTime.Now < début_tour + jeu.Durée_Tour)
+                    if(début_tour + jeu.Durée_Tour > fin_jeu) //Si le temps restant du jeu est inférieur au temps d'un tour
+                    {
+                        début_tour = fin_jeu - jeu.Durée_Tour;
+                    }
+                    while (DateTime.Now < début_tour + jeu.Durée_Tour) //Tour du joueur durant la durée définie
                     {
                         Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
                         Console.WriteLine(plateau.toString());
@@ -158,19 +165,21 @@ namespace PROJET_Algo
                 Console.WriteLine();
                 Console.WriteLine(joueur_2.toString());
 
-                int choix_jeu = 0;
+                string choix_jeu = "0";
                 Console.WriteLine("Souhaitez-vous rejouer ? (1: Oui, 2: Non)");
-                while (choix_jeu != 1 && choix_jeu != 2)
+                while (choix_jeu != "1" && choix_jeu != "2")
                 {
-                    choix_jeu = Convert.ToInt32(Console.ReadLine());
+                    choix_jeu = Console.ReadLine();
                 }
-                if(choix_jeu == 2)
+                if(choix_jeu == "2")
                 {
                     jeu_en_cours = false;
+                    break;
                 }
                 Console.Clear();
             }
         }
+        
         static void Main(string[] args)
         {
             Game();
