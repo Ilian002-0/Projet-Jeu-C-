@@ -9,6 +9,40 @@ namespace PROJET_Algo
 {
     internal class Program
     {
+        static void Menu()
+        {
+            while (true)
+            {
+                int type_jeu_1 = 0;
+                AfficherEcranAccueil();
+                Console.WriteLine("Que voulez-vous faire :\n" +
+                        "1 : Jouer à un nouveau jeu\n" +
+                        "2 : Tester les fonctions\n" +
+                        "3 : Quitter\n" +
+                        "Veuillez choisir un nombre entre 1 et 3 :");
+                while (type_jeu_1 != 1 && type_jeu_1 != 2 && type_jeu_1 != 3)
+                {
+                    string a = Console.ReadLine();
+                    int.TryParse(a, out type_jeu_1);
+                }
+                Console.Clear();
+                if (type_jeu_1 == 1)
+                {
+                    Game();
+                }
+                else if (type_jeu_1 == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Merci d'avoir joué aux Mots Glissés ! À bientôt !\n\n");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("En construction...");
+                    //TestsUnitaires();
+                }
+            }
+        }
         static void Game()
         {
             bool jeu_en_cours = true;
@@ -20,7 +54,6 @@ namespace PROJET_Algo
                 int duree_jeu = 0;
                 int duree_tour = 0;
                 int taille_plateau = 0;
-
 
                 //Création des joueurs
                 Console.WriteLine("Joueur 1, entrez votre pseudo : ");
@@ -40,16 +73,18 @@ namespace PROJET_Algo
                     "Veuillez choisir un nombre entre 1 et 3 :");
                 while (type_jeu != 1 && type_jeu != 2 && type_jeu != 3)
                 {
-                    type_jeu = Convert.ToInt32(Console.ReadLine());
+                    string a = Console.ReadLine();
+                    int.TryParse(a, out type_jeu);
                 }
                 Console.Clear();
 
                 if (type_jeu == 1)
                 {
-                    Console.WriteLine("Veuillez choisir la taille du plateau (3 à 12) :");
-                    while (taille_plateau < 3 || taille_plateau > 12)
+                    Console.WriteLine("Veuillez choisir la taille du plateau (3 à 15) :");
+                    while (taille_plateau < 3 || taille_plateau > 15)
                     {
-                        taille_plateau = Convert.ToInt32(Console.ReadLine());
+                        string a = Console.ReadLine();
+                        int.TryParse(a, out taille_plateau);
                     }
                     Console.Clear();
                 }
@@ -67,13 +102,15 @@ namespace PROJET_Algo
                 Console.WriteLine("Veuillez choisir la durée total du jeu en min (min : 1min | max : 5min) :");
                 while (!Jeu.Verif_time(1, duree_jeu)) //Type 1 pour le temps total
                 {
-                    duree_jeu = Convert.ToInt32(Console.ReadLine());
+                    string a = Console.ReadLine();
+                    int.TryParse(a, out duree_jeu);
                 }
                 Console.Clear();
                 Console.WriteLine("Veuillez choisir la durée de chaque tour en seconde (min : 5s | max : 60s) :");
                 while (!Jeu.Verif_time(0, duree_tour)) //Type 0 pour le temps de chaque tour
                 {
-                    duree_tour = Convert.ToInt32(Console.ReadLine());
+                    string a = Console.ReadLine();
+                    int.TryParse(a, out duree_tour);
                 }
                 Jeu jeu = new Jeu(joueur_1, joueur_2, plateau, duree_tour, duree_jeu);
                 Console.Clear();
@@ -120,17 +157,17 @@ namespace PROJET_Algo
                         string mot = Console.ReadLine().ToUpper();
                         if (current_joueur.Contient(mot))
                         {
-                            current_joueur.Message += $"Vous avez déjà trouvé ce mot.\n";
+                            Console.WriteLine($"Vous avez déjà trouvé ce mot.\n");
                             Console.Clear();
                         }
                         else if (!dico.RechDichoRecursif(mot))
                         {
-                            current_joueur.Message += $"Le mot '{mot}' n'est pas dans le dictionnaire.\n";
+                            Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.\n");
                             Console.Clear();
                         }
                         else if (!plateau.Recherche_Mot(mot))
                         {
-                            current_joueur.Message += $"Le mot '{mot}' n'est pas sur le plateau.\n";
+                            Console.WriteLine($"Le mot '{mot}' n'est pas sur le plateau.\n");
                             Console.Clear();
                         }
                         else
@@ -179,10 +216,44 @@ namespace PROJET_Algo
                 Console.Clear();
             }
         }
-        
+        static void AfficherEcranAccueil()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan; // Couleur du titre
+
+            // ASCII Art pour "MOTS GLISSES"
+            Console.WriteLine(@"
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║                                                                      ║
+    ║   __  __  ___ _____ ___   ____ _     ___ ____ ____  _____ ____       ║
+    ║  |  \/  |/ _ \_   _/ _ \ / ___| |   |_ _/ ___/ ___|| ____/ ___|      ║
+    ║  | |\/| | | | || || |_) | |  _| |    | |\___ \___ \|  _| \___ \      ║
+    ║  | |  | | |_| || ||  __/| |_| | |___ | | ___) |__) | |___ ___) |     ║
+    ║  |_|  |_|\___/ |_| |_|   \____|_____|___|____/____/|_____|____/      ║
+    ║                                                                      ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+    ");
+
+            Console.ResetColor();
+
+            // Informations supplémentaires
+            Console.WriteLine("\n\tBienvenue dans le jeu des Mots Glissés !");
+            Console.WriteLine("\tProjet Algorithmique & Programmation - 2025");
+            Console.WriteLine("\n\t---------------------------------------------");
+
+            // Message pour lancer
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n\tAppuyez sur une touche pour commencer...");
+            Console.ResetColor();
+
+            Console.ReadKey(); // On attend que l'utilisateur appuie sur une touche
+            Console.Clear();   // Nettoie l'écran pour la suite
+        }
+        static void TestsUnitaires()
+        { }
         static void Main(string[] args)
         {
-            Game();
+            Menu();
         }
     }
 }
