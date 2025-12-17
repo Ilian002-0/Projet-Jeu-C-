@@ -157,17 +157,17 @@ namespace PROJET_Algo
                         string mot = Console.ReadLine().ToUpper();
                         if (current_joueur.Contient(mot))
                         {
-                            Console.WriteLine($"Vous avez déjà trouvé ce mot.\n");
+                            current_joueur.Message += $"Vous avez déjà trouvé ce mot.\n";
                             Console.Clear();
                         }
                         else if (!dico.RechDichoRecursif(mot))
                         {
-                            Console.WriteLine($"Le mot '{mot}' n'est pas dans le dictionnaire.\n");
+                            current_joueur.Message += $"Le mot '{mot}' n'est pas dans le dictionnaire.\n";
                             Console.Clear();
                         }
                         else if (!plateau.Recherche_Mot(mot))
                         {
-                            Console.WriteLine($"Le mot '{mot}' n'est pas sur le plateau.\n");
+                            current_joueur.Message += $"Le mot '{mot}' n'est pas sur le plateau.\n";
                             Console.Clear();
                         }
                         else
