@@ -9,6 +9,7 @@ namespace PROJET_Algo
 {
     internal class Program
     {
+        // --- 1. FONCTION MENU ---
         static void Menu()
         {
             while (true)
@@ -38,11 +39,12 @@ namespace PROJET_Algo
                 }
                 else
                 {
-                    Console.WriteLine("En construction...");
-                    //TestsUnitaires();
+                    TestsUnitaires();
                 }
             }
         }
+
+        // --- 2. FONCTION JEU (GAME) ---
         static void Game()
         {
             bool jeu_en_cours = true;
@@ -63,9 +65,7 @@ namespace PROJET_Algo
                 Joueur joueur_2 = new Joueur(Convert.ToString(Console.ReadLine()));
                 Console.Clear();
 
-
                 //Création du jeu
-                //Choix du type de plateau
                 Console.WriteLine("Veuillez choisir le type de plateau :\n" +
                     "1 : Générer aléatoirement le plateau\n" +
                     "2 : Jouer sur des plateaux existants\n" +
@@ -100,14 +100,14 @@ namespace PROJET_Algo
 
                 //Choix des durées
                 Console.WriteLine("Veuillez choisir la durée total du jeu en min (min : 1min | max : 5min) :");
-                while (!Jeu.Verif_time(1, duree_jeu)) //Type 1 pour le temps total
+                while (!Jeu.Verif_time(1, duree_jeu))
                 {
                     string a = Console.ReadLine();
                     int.TryParse(a, out duree_jeu);
                 }
                 Console.Clear();
                 Console.WriteLine("Veuillez choisir la durée de chaque tour en seconde (min : 5s | max : 60s) :");
-                while (!Jeu.Verif_time(0, duree_tour)) //Type 0 pour le temps de chaque tour
+                while (!Jeu.Verif_time(0, duree_tour))
                 {
                     string a = Console.ReadLine();
                     int.TryParse(a, out duree_tour);
@@ -115,10 +115,9 @@ namespace PROJET_Algo
                 Jeu jeu = new Jeu(joueur_1, joueur_2, plateau, duree_tour, duree_jeu);
                 Console.Clear();
                 Console.WriteLine("Veuillez patienter pendant la génération du jeu...");
-                Dictionnaire dico = new Dictionnaire(); //tri du dictionnaire
+                Dictionnaire dico = new Dictionnaire();
                 Console.Clear();
 
-                //Fait en sorte d'éviter quelconque bug
                 if (!plateau.Verif)
                 {
                     Console.WriteLine("Problème avec le fichier ou la création de la matrice");
@@ -138,23 +137,29 @@ namespace PROJET_Algo
                 //Début du jeu
                 DateTime début_jeu = DateTime.Now;
                 DateTime fin_jeu = début_jeu + jeu.Durée_Jeu;
-                while (DateTime.Now < fin_jeu) //Joue au jeu durant la durée définie
+
+                // Variable pour arrêter tout le jeu si plateau vide
+                bool partieTerminee = false;
+
+                while (DateTime.Now < fin_jeu && !partieTerminee)
                 {
                     jeu.Tour++;
                     Joueur current_joueur = jeu.Joueur_tour(jeu.Tour);
                     Console.Clear();
                     DateTime début_tour = DateTime.Now;
-                    if(début_tour + jeu.Durée_Tour > fin_jeu) //Si le temps restant du jeu est inférieur au temps d'un tour
+                    if (début_tour + jeu.Durée_Tour > fin_jeu)
                     {
                         début_tour = fin_jeu - jeu.Durée_Tour;
                     }
-                    while (DateTime.Now < début_tour + jeu.Durée_Tour) //Tour du joueur durant la durée définie
+
+                    while (DateTime.Now < début_tour + jeu.Durée_Tour && !partieTerminee)
                     {
                         Console.WriteLine($"{current_joueur.Nom} c'est à votre tour :");
                         Console.WriteLine(plateau.toString());
                         Console.WriteLine(current_joueur.Message);
                         Console.WriteLine("Saisissez un mot :");
                         string mot = Console.ReadLine().ToUpper();
+
                         if (current_joueur.Contient(mot))
                         {
                             current_joueur.Message += $"Vous avez déjà trouvé ce mot.\n";
@@ -177,9 +182,20 @@ namespace PROJET_Algo
                             current_joueur.Add_Score(score);
                             current_joueur.Message += $"'{mot}' existe youhou : +{score} points\n";
                             Console.Clear();
+
+                            if (plateau.Est_Vide())
+                            {
+                                Console.Clear();
+                                Console.WriteLine(plateau.toString());
+                                Console.WriteLine("\n\nLE PLATEAU EST VIDE ! FIN DE LA PARTIE !");
+                                System.Threading.Thread.Sleep(3000);
+                                partieTerminee = true;
+                                break;
+                            }
                         }
                     }
                 }
+
                 //Fin du jeu 
                 Console.Clear();
                 Console.WriteLine("Le jeu est terminé !");
@@ -208,7 +224,7 @@ namespace PROJET_Algo
                 {
                     choix_jeu = Console.ReadLine();
                 }
-                if(choix_jeu == "2")
+                if (choix_jeu == "2")
                 {
                     jeu_en_cours = false;
                     break;
@@ -216,12 +232,13 @@ namespace PROJET_Algo
                 Console.Clear();
             }
         }
+
+        // --- 3. FONCTION ECRAN ACCUEIL ---
         static void AfficherEcranAccueil()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan; // Couleur du titre
+            Console.ForegroundColor = ConsoleColor.Cyan;
 
-            // ASCII Art pour "MOTS GLISSES"
             Console.WriteLine(@"
     ╔════════════════════════════════════════════════════════════════════╗
     ║                                                                    ║
@@ -235,22 +252,119 @@ namespace PROJET_Algo
     ");
 
             Console.ResetColor();
-
-            // Informations supplémentaires
             Console.WriteLine("\n\tBienvenue dans le jeu des Mots Glissés !");
             Console.WriteLine("\tProjet Algorithmique & Programmation - 2025");
             Console.WriteLine("\n\t---------------------------------------------");
 
-            // Message pour lancer
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n\tAppuyez sur une touche pour commencer...");
             Console.ResetColor();
 
-            Console.ReadKey(); // On attend que l'utilisateur appuie sur une touche
-            Console.Clear();   // Nettoie l'écran pour la suite
+            Console.ReadKey();
+            Console.Clear();
         }
+
+        // --- 4. FONCTION TESTS UNITAIRES ---
         static void TestsUnitaires()
-        { }
+        {
+            Console.WriteLine("=== Lancement des Tests Unitaires ===\n");
+            int testsReussis = 0;
+            int testsTotal = 0;
+
+            // TEST 1 : Vérification du temps
+            testsTotal++;
+            Console.Write("Test 1 : Jeu.Verif_time (Tour 30s)... ");
+            bool resTime1 = Jeu.Verif_time(0, 30);
+            bool resTime2 = Jeu.Verif_time(0, 2);
+            if (resTime1 && !resTime2)
+            {
+                Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("OK"); testsReussis++;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("ECHEC");
+            }
+            Console.ResetColor();
+
+            // TEST 2 : Vérification du nom
+            testsTotal++;
+            Console.Write("Test 2 : Joueur.Verif_nom... ");
+            Joueur jTest = new Joueur("Testeur");
+            if (jTest.Verif_nom("Toto") && !jTest.Verif_nom(""))
+            {
+                Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("OK"); testsReussis++;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("ECHEC");
+            }
+            Console.ResetColor();
+
+            // TEST 3 : Gestion des mots
+            testsTotal++;
+            Console.Write("Test 3 : Joueur.Add_Mot & Contient... ");
+            jTest.Add_Mot("TEST");
+            if (jTest.Contient("TEST") && !jTest.Contient("RATÉ"))
+            {
+                Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("OK"); testsReussis++;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("ECHEC");
+            }
+            Console.ResetColor();
+
+            // TEST 4 : Calcul du score
+            testsTotal++;
+            Console.Write("Test 4 : Plateau.Calcul_Score_Mot (Mot 'LE')... ");
+            Plateau pTest = new Plateau(1, 8);
+            if (pTest.Verif)
+            {
+                int score = pTest.Calcul_Score_Mot("LE");
+                if (score > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"OK (Score: {score})"); testsReussis++;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"ECHEC (Score: {score})");
+                }
+            }
+            else
+            {
+                Console.WriteLine("IGNORÉ (Problème fichier Lettres.txt)");
+            }
+            Console.ResetColor();
+
+            // TEST 5 : Recherche Dictionnaire
+            testsTotal++;
+            Console.Write("Test 5 : Dictionnaire.RechDichoRecursif... ");
+            Dictionnaire dTest = new Dictionnaire();
+            if (dTest.Verif)
+            {
+                bool motExiste = dTest.RechDichoRecursif("le");
+                bool motInconnu = dTest.RechDichoRecursif("xyzxyz");
+                if (motExiste && !motInconnu)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("OK"); testsReussis++;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("ECHEC");
+                }
+            }
+            else
+            {
+                Console.WriteLine("IGNORÉ (Fichier Mots_Français.txt introuvable)");
+            }
+            Console.ResetColor();
+
+            Console.WriteLine($"\nRésultat final : {testsReussis}/{testsTotal} tests réussis.");
+            Console.WriteLine("Appuyez sur une touche pour revenir au menu...");
+            Console.ReadKey();
+        }
+
+        // --- 5. MAIN (Point d'entrée) ---
         static void Main(string[] args)
         {
             Menu();

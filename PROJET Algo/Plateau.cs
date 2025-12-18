@@ -284,6 +284,19 @@ namespace PROJET_Algo
             Random rand = new Random();
             return tab_nom_fichier[rand.Next(0,nb_fichier)];
         }
+        public bool Est_Vide()
+        {
+            for (int i = 0; i < this.taille_matrice; i++)
+            {
+                for (int j = 0; j < this.taille_matrice; j++)
+                {
+                    // Si on trouve une lettre (pas un espace null ou vide), le plateau n'est pas vide
+                    if (!string.IsNullOrWhiteSpace(this.tableau[i, j]))
+                        return false;
+                }
+            }
+            return true;
+        }
     }
 }
 
