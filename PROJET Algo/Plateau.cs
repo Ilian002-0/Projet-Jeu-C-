@@ -186,7 +186,7 @@ namespace PROJET_Algo
             if (index == mot.Length) return true;
 
             if (ligne < 0 || ligne >= taille_matrice || col < 0 || col >= taille_matrice) return false; //Verifie si on est hors des limites
-            if (visite[ligne, col]) return false;
+            if (visite[ligne, col]) return false; 
 
             if (this.tableau[ligne, col] != mot[index].ToString()) return false;
 
@@ -220,7 +220,7 @@ namespace PROJET_Algo
         }
         public void Maj_Plateau(List<int[]> liste_coordonne)//Met le plateau à jour en faisant une animation, attention à bien gérer car il y a un Console.WriteLine()
         {
-            for (int i = 0; i < liste_coord_lettre.Count; i++)
+            for (int i = 0; i < liste_coord_lettre.Count; i++)  //On remplace chaque lettre trouvée par un *
             {
                 int[] coord = liste_coord_lettre[i];
                 int ligne = coord[0];
@@ -253,7 +253,7 @@ namespace PROJET_Algo
             System.Threading.Thread.Sleep(100);
             int[] newCoord = new int[] { ligne - 1, colonne }; //On crée une nouvelle coordonnée pour continuer la descente
             Recursive_Descente_lettre(newCoord);
-        }
+        } //Fait descendre une lettre en partant d'une coordonnée donnée
         public int Calcul_Score_Mot(string mot) //Calcule le score d'un mot en fonction des lettres qui le composent
         {
             int score = 0;
