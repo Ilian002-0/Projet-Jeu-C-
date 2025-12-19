@@ -103,18 +103,15 @@ namespace PROJET_Algo
             }
             if (type == 2) // type 2 : chercher un tableau déjà fait
             {
-                string fileBaseName = Tab_Test();
+                string fileBaseName = Tab_Test() + ".txt";
                 if (string.IsNullOrEmpty(fileBaseName))
                 {
                     this.verif = false;
                     this.error_message = "Aucun fichier test choisi.";
                     return;
                 }
-                string fichier = fileBaseName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)
-                    ? fileBaseName
-                    : fileBaseName + ".txt";
                 this.tableau = new string[8,8];
-                this.tableau = ToRead(fichier);
+                this.tableau = ToRead(fileBaseName);
                 if (this.tableau == null) return;
                 this.taille_matrice = this.tableau.GetLength(0);
             }
@@ -183,7 +180,7 @@ namespace PROJET_Algo
         }
         private bool RechercheRecursive(string mot, int ligne, int col, int index, bool[,] visite)
         {
-            if (index == mot.Length) return true;
+            if (index == mot.Length) return true; // Mot trouvé
 
             if (ligne < 0 || ligne >= taille_matrice || col < 0 || col >= taille_matrice) return false; //Verifie si on est hors des limites
             if (visite[ligne, col]) return false; 

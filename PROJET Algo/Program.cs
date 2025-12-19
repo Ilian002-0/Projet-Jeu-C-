@@ -9,7 +9,6 @@ namespace PROJET_Algo
 {
     internal class Program
     {
-        // --- 1. FONCTION MENU ---
         static void Menu()
         {
             while (true)
@@ -44,7 +43,6 @@ namespace PROJET_Algo
             }
         }
 
-        // --- 2. FONCTION JEU (GAME) ---
         static void Game()
         {
             bool jeu_en_cours = true;
@@ -233,7 +231,6 @@ namespace PROJET_Algo
             }
         }
 
-        // --- 3. FONCTION ECRAN ACCUEIL ---
         static void AfficherEcranAccueil()
         {
             Console.Clear();
@@ -264,7 +261,6 @@ namespace PROJET_Algo
             Console.Clear();
         }
 
-        // --- 4. FONCTION TESTS UNITAIRES ---
         static void TestsUnitaires()
         {
             Console.WriteLine("=== Lancement des Tests Unitaires ===\n");
@@ -364,7 +360,6 @@ namespace PROJET_Algo
             Console.ReadKey();
         }
 
-        // --- 5. MAIN (Point d'entrée) ---
         static void Main(string[] args)
         {
             Menu();
