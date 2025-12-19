@@ -15,11 +15,16 @@ namespace PROJET_Algo
             {
                 int type_jeu_1 = 0;
                 AfficherEcranAccueil();
-                Console.WriteLine("Que voulez-vous faire :\n" +
-                        "1 : Jouer à un nouveau jeu\n" +
-                        "2 : Tester les fonctions\n" +
-                        "3 : Quitter\n" +
-                        "Veuillez choisir un nombre entre 1 et 3 :");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(" ╔══════════════════════════════╗\n"
+                    + " ║ Que voulez-vous faire :      ║\n" +
+                        " ║ 1 : Jouer à un nouveau jeu   ║\n" +
+                        " ║ 2 : Tester les fonctions     ║\n" +
+                        " ║ 3 : Quitter                  ║\n" +
+                        " ╚══════════════════════════════╝\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Veuillez choisir un nombre entre 1 et 3 :\n");
+                Console.ResetColor();
                 while (type_jeu_1 != 1 && type_jeu_1 != 2 && type_jeu_1 != 3)
                 {
                     string a = Console.ReadLine();

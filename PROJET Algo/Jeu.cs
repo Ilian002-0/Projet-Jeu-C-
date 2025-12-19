@@ -15,7 +15,6 @@ namespace PROJET_Algo
         private TimeSpan duree_tour = TimeSpan.Zero;
         private TimeSpan duree_jeu = TimeSpan.Zero;
         private int tour = 0;
-
         public Jeu(Joueur joueur1, Joueur joueur2, Plateau current_plateau, int duree_tour, int duree_jeu)
         {
             this.joueur1 = joueur1;
